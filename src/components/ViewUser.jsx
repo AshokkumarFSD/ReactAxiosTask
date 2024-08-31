@@ -12,8 +12,9 @@ export default function ViewUser({ userId }) {
   //handlers
   function handleSubmit(e) {
     e.preventDefault();
-    if (validate()) {
-    }
+    // if (validate()) {
+    // }
+    console.log(userDetail);
 
   }
 
@@ -119,6 +120,14 @@ export default function ViewUser({ userId }) {
     return !!pattern.test(str);
   }
 
+  function handlechange(keyVal) {
+    let changes = { ...userDetail };
+    for (let key in keyVal) {
+      changes[key] = keyVal[key];
+    }
+    setUserDetail(changes);
+  }
+
 
   return (
     <div className="add_user_coordinator">
@@ -136,14 +145,16 @@ export default function ViewUser({ userId }) {
                 className="p-3 border w-60 rounded-lg"
                 placeholder="Name"
                 value={userDetail.name}
-              // onChange={(e) => setName(e.target.value)}
+                onChange={(e) =>
+                  handlechange({ "name": e.target.value })
+                }
               />
 
               <input
                 className="p-3 border w-60 rounded-lg"
                 placeholder="UserName"
                 value={userDetail.username}
-              // onChange={(e) => setUserName(e.target.value)}
+                onChange={(e) => handlechange({ "username": e.target.value })}
               />
             </div>
 
@@ -153,7 +164,7 @@ export default function ViewUser({ userId }) {
                 className="p-3 border w-60 rounded-lg"
                 placeholder="Email"
                 value={userDetail.email}
-              // onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => handlechange({ "email": e.target.value })}
               />
             </div>
 
@@ -167,100 +178,143 @@ export default function ViewUser({ userId }) {
                 className="p-3 border w-60 rounded-lg"
                 placeholder="Street"
                 value={userDetail.address.street}
-              // onChange={(e) => setStreet(e.target.value)}
+                onChange={(e) => {
+                  let addressObj = userDetail.address;
+                  addressObj["street"] = e.target.value;
+                  handlechange(addressObj);
+                }}
               />
               <input
                 className="p-3 border w-60 rounded-lg"
                 placeholder="Suite"
                 value={userDetail.address.suite}
-              // onChange={(e) => setSuite(e.target.value)}
+                onChange={(e) => {
+                  let addressObj = userDetail.address;
+                  addressObj["suite"] = e.target.value;
+                  handlechange(addressObj);
+                }
+
+                }
               />
             </div>
 
             <div className="form-row">
 
-            <input
-              className="p-3 border w-60 rounded-lg"
-              placeholder="City"
-              value={userDetail.address.city}
-              // onChange={(e) => setCity(e.target.value)}
-            />
-            <input
-              className="p-3 border w-60 rounded-lg"
-              placeholder="Zipcode"
-              value={userDetail.address.zipcode}
-              // onChange={(e) => setZipCode(e.target.value)}
-            />
-          </div>
+              <input
+                className="p-3 border w-60 rounded-lg"
+                placeholder="City"
+                value={userDetail.address.city}
+                onChange={(e) => {
+                  let addressObj = userDetail.address;
+                  addressObj["city"] = e.target.value;
+                  handlechange(addressObj);
+                }}
+              />
+              <input
+                className="p-3 border w-60 rounded-lg"
+                placeholder="Zipcode"
+                value={userDetail.address.zipcode}
+                onChange={(e) => {
+                  let addressObj = userDetail.address;
+                  addressObj["zipcode"] = e.target.value;
+                  handlechange(addressObj);
+                }}
+              />
+            </div>
 
-          <div className="form-row">
+            <div className="form-row">
 
-            <input
-              className="p-3 border w-60 rounded-lg"
-              placeholder="Latitude"
-              value={userDetail.address.geo.lat}
-              // onChange={(e) => setLatitude(e.target.value)}
-            />
-            <input
-              className="p-3 border w-60 rounded-lg"
-              placeholder="Longtitude"
-              value={userDetail.address.geo.lng}
-              // onChange={(e) => setLongitude(e.target.value)}
-            />
-          </div>
+              <input
+                className="p-3 border w-60 rounded-lg"
+                placeholder="Latitude"
+                value={userDetail.address.geo.lat}
+                onChange={(e) => {
+                  let addressObj = userDetail.address;
+                  addressObj["geo"]["lat"] = e.target.value;
+                  handlechange(addressObj);
+                }}
+              />
+              <input
+                className="p-3 border w-60 rounded-lg"
+                placeholder="Longtitude"
+                value={userDetail.address.geo.lng}
+                onChange={(e) => {
+                  let addressObj = userDetail.address;
+                  addressObj["geo"]["lng"] = e.target.value;
+                  handlechange(addressObj);
+                }}
+              />
+            </div>
 
-          <div className="text-accent text-xl font-bold form_section_header">
-            Contact
-          </div>
+            <div className="text-accent text-xl font-bold form_section_header">
+              Contact
+            </div>
 
-          <div className="form-row">
+            <div className="form-row">
 
-            <input
-              className="p-3 border w-60 rounded-lg"
-              placeholder="Phone"
-              value={userDetail.phone}
-              // onChange={(e) => setPhone(e.target.value)}
-            />
-            <input
-              className="p-3 border w-60 rounded-lg"
-              placeholder="Website"
-              value={userDetail.website}
-              // onChange={(e) => setWebsite(e.target.value)}
-            />
-          </div>
-
-
-          <div className="text-accent text-xl font-bold form_section_header">
-            Company
-          </div>
-
-
-          <div className="form-row">
-
-            <input
-              className="p-3 border w-60 rounded-lg"
-              placeholder="Company Name"
-              value={userDetail.company.name}
-              // onChange={(e) => setCName(e.target.value)}
-            />
-            <input
-              className="p-3 border w-60 rounded-lg"
-              placeholder="Catch Pharse"
-              value={userDetail.company.catchPhrase}
-              // onChange={(e) => setCatchPharse(e.target.value)}
-            />
-          </div>
+              <input
+                className="p-3 border w-60 rounded-lg"
+                placeholder="Phone"
+                value={userDetail.phone}
+                onChange={(e) => {
+                  handlechange({ "phone": e.target.value });
+                }}
+              />
+              <input
+                className="p-3 border w-60 rounded-lg"
+                placeholder="Website"
+                value={userDetail.website}
+                onChange={(e) => {
+                  handlechange({ "website": e.target.value });
+                }}
+              />
+            </div>
 
 
-          <div className="form-row">
+            <div className="text-accent text-xl font-bold form_section_header">
+              Company
+            </div>
 
-            <input
-              className="p-3 border w-60 rounded-lg"
-              placeholder="Bs"
-              value={userDetail.company.bs}
-              // onChange={(e) => setBs(e.target.value)}
-            />
-          </div>
+
+            <div className="form-row">
+
+              <input
+                className="p-3 border w-60 rounded-lg"
+                placeholder="Company Name"
+                value={userDetail.company.name}
+                onChange={(e) => {
+                  let companyObj = userDetail.company;
+                  companyObj["name"] = e.target.value;
+                  handlechange(companyObj);
+                }}
+              />
+              <input
+                className="p-3 border w-60 rounded-lg"
+                placeholder="Catch Pharse"
+                value={userDetail.company.catchPhrase}
+                onChange={(e) => {
+                  let companyObj = userDetail.company;
+                  companyObj["catchPhrase"] = e.target.value;
+                  handlechange(companyObj);
+                }}
+              />
+            </div>
+
+
+            <div className="form-row">
+
+              <input
+                className="p-3 border w-60 rounded-lg"
+                placeholder="Bs"
+                value={userDetail.company.bs}
+                onChange={(e) => {
+                  let companyObj = userDetail.company;
+                  companyObj["bs"] = e.target.value;
+                  handlechange(companyObj);
+                }
+                }
+              />
+            </div>
 
 
             <button
