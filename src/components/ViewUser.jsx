@@ -341,7 +341,7 @@ export default function ViewUser({ userId }) {
 
                 <div className="form-row">
 
-                  <input
+                  <textarea
                     className="p-3 border w-60 rounded-lg"
                     placeholder="Bs"
                     value={userDetail.company.bs}
