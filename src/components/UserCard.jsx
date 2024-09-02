@@ -11,7 +11,6 @@ export function UserCard({ data }) {
 
     function handleDetailsclick()
     {
-        console.log("handleDetailsclick ------")
          navigate(`/viewuser/${data.id}`);
     }
 

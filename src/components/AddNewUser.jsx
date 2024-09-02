@@ -1,11 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
+import { AppState } from "../context/AppContext";
+import LoaderOverlay from "./LoaderOverlay";
+import { useNavigate } from "react-router-dom";
 
 export default function AddNewUser() {
   //states for the fields
-
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
 
   const [name, setName] = useState("");
   const [userName, setUserName] = useState("");
@@ -25,6 +25,9 @@ export default function AddNewUser() {
   const [catchPharse, setCatchPharse] = useState("");
   const [bs, setBs] = useState("");
 
+  const [loadingOverlay, setLoadingOverLay] = useState(false);
+  const {  userListDispatch } = AppState();
+  const navigate = useNavigate();
 
   //handlers
   function handleSubmit(e) {
@@ -48,16 +51,22 @@ export default function AddNewUser() {
       website,
       company:{
         name:cName,
-        catchPharse,
+        catchPhrase:catchPharse,
         bs
       }
     };
 
+    setLoadingOverLay(true);
       axios.post("https://66cd7c788ca9aa6c8cca7ddb.mockapi.io/users", dataSet).then((res) => {
-        console.log(res)
-        setSuccessMessage("Added successfully")
+        setLoadingOverLay(false);
+        userListDispatch({type:"add",data:res.data})
+        alert("Added successfully")
+        navigate("/")
       }
-      ).catch((err) => console.log(err));
+      ).catch((err) => {
+        setLoadingOverLay(false);
+        alert("Add failed, try again");
+      });
 
     }
     
@@ -159,6 +168,8 @@ function validURL(str) {
   return (
     <div className="add_user_coordinator">
       <div className="artboard bg-base-100 p-5 rounded-lg">
+      {loadingOverlay && <LoaderOverlay />}
+      <div className={loadingOverlay ? 'content-dimmed' : ''}>
         <div className="text-accent text-center text-xl font-bold add_user_header">
           Add New user
         </div>
@@ -304,20 +315,7 @@ function validURL(str) {
             Submit
           </button>
         </form>
-        {successMessage ? (
-          <div className="text-success text-center font-bold text-lg">
-            {successMessage}
-          </div>
-        ) : (
-          ""
-        )}
-        {errorMessage ? (
-          <div className="text-error text-center font-bold text-lg">
-            {errorMessage}
-          </div>
-        ) : (
-          ""
-        )}
+      </div>
       </div>
     </div>
   )
