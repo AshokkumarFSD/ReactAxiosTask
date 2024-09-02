@@ -1,8 +1,31 @@
-# React + Vite
+# React Axios Task
+------------------
+# Implementaion 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Contains Dashboard and Add user Page.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+Dashboard - will display the user list with minimum details and option to view all details.
+
+
+  View user page  - will display all the details of particualr user with udpate and delete option.
+
+        
+Add user page  - will provide the option add the new user.
+
+------------------
+
+Axios library used with get,post,put,delete methods.
+
+
+[mock.io ](https://mockapi.io/) used to mock the CRUD operations.
+
+
+App context used store the user list.
+
+
+UseReducer used to udpate the user list based on update and delete opration.
+
+
+
